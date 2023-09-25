@@ -161,10 +161,10 @@
         }
     }
 
-    const ageStatus = ageStatusResult(result);
+    const ageStatusData = ageStatusResult(result);
 
     const ageStatusContainer = document.getElementById('ageStatus');
-    for (const ageGroup in ageStatus) {
+    for (const ageGroup in ageStatusData) {
         const people = ageStatus[ageGroup];
         const ageGroupContainer = `${ageGroup} ${people}人`;
         const ageGroupElement = document.createElement('p');
