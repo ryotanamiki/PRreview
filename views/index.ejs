@@ -161,13 +161,6 @@
         }
     }
 
-        const personasData = [
-        <% personas.forEach(persona => { %>
-            {
-            usename: '<%= persona.username'
-            }
-    ];
-
     const ageStatusData = ageStatusResult(personasData);
 
     const ageStatusContainer = document.getElementById('ageStatus');
