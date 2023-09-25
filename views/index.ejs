@@ -13,6 +13,7 @@
 
     <label for="sortRating">ソート：</label>
     <select id="sortRating" onchange="sortTable()">
+        <option value="">ー</option>
         <option value="row">低い順</option>
         <option value="high">高い順</option>
     </select>
@@ -69,7 +70,7 @@
             let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
             table = document.querySelector("table");
             switching = true;
-            dir = document.querySelector("#sortRating").value === "asc" ? 1 : -1;
+            dir = document.querySelector("#sortRating").value === "row" ? 1 : -1;
 
             while (switching) {
                 switching = false;
