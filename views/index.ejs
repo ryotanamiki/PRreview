@@ -131,46 +131,7 @@
         }
 
     /*-----------------------年代別グラフ---------------------------*/
-    function ageStatusResult(personas) {
-        const ageStatus = {
-            '20代': 0,
-            '30代': 0,
-            '40代': 0,
-            'その他': 0
-        };
 
-        personas.forEach(persona => {
-            const ageGroup = getAgeGroup(persona.age);
-
-            if (ageStatus[ageGroup]) {
-                ageStatus[ageGroup]++;
-            } else ageStatus[ageGroup] = 1;
-        });
-        return ageStatus;
-    }
-
-    function getAgeGroup(age) {
-        if (age >= 20 && age < 30) {
-            return '20代';
-        } else if (age >= 30 && age < 40) {
-            return '30代';
-        } else if (age >= 40 && age < 50) {
-            return '40代';
-        } else {
-            return 'その他'
-        }
-    }
-
-    const ageStatusData = ageStatusResult(personasData);
-
-    const ageStatusContainer = document.getElementById('ageStatus');
-    for (const ageGroup in ageStatusData) {
-        const people = ageStatusData[ageGroup];
-        const ageGroupContainer = `${ageGroup} ${people}人`;
-        const ageGroupElement = document.createElement('p');
-        ageGroupElement.textContent = ageGroupContainer;
-        ageStatusContainer.appendChild(ageGroupElement);
-    }
     </script>
 </body>
 
