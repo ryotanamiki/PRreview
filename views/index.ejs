@@ -165,7 +165,7 @@
 
     const ageStatusContainer = document.getElementById('ageStatus');
     for (const ageGroup in ageStatusData) {
-        const people = ageStatus[ageGroup];
+        const people = ageStatusData[ageGroup];
         const ageGroupContainer = `${ageGroup} ${people}人`;
         const ageGroupElement = document.createElement('p');
         ageGroupElement.textContent = ageGroupContainer;
