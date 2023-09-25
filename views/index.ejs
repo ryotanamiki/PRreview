@@ -136,7 +136,12 @@
 
         personas.forEach(persona => {
             const ageGroup = getAgeGroup(persona.age);
-        })
+
+            if (ageStatus[ageGroup]) {
+                ageStatus[ageGroup]++;
+            } else ageStatus[ageGroup] = 1;
+        });
+        return ageStatus;
     }
     </script>
 </body>
