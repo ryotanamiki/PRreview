@@ -131,7 +131,7 @@
         }
 
     /*-----------------------年代別グラフ---------------------------*/
-    function ageStatusResult(persona) {
+    function ageStatusResult(personas) {
         const ageStatus = {
             '20代': 0,
             '30代': 0,
@@ -161,7 +161,7 @@
         }
     }
 
-    const ageStatusData = ageStatusResult(result);
+    const ageStatusData = ageStatusResult(personasData);
 
     const ageStatusContainer = document.getElementById('ageStatus');
     for (const ageGroup in ageStatusData) {
