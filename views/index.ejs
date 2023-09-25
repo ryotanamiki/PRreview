@@ -132,7 +132,12 @@
 
     /*-----------------------年代別グラフ---------------------------*/
     function ageStatusResult(persona) {
-        const ageStatus = {};
+        const ageStatus = {
+            '20代': 0,
+            '30代': 0,
+            '40代': 0,
+            'その他': 0
+        };
 
         personas.forEach(persona => {
             const ageGroup = getAgeGroup(persona.age);
@@ -151,6 +156,8 @@
             return '30代';
         } else if (age >= 40 && age < 50) {
             return '40代';
+        } else {
+            return 'その他'
         }
     }
 
