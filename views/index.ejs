@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>商品レビュー機能</title>
+</head>
+
+<body>
+    <h1>商品レビュー機能</h1>
+
+    <label for="sortRating">ソート：</label>
+    <select id="sortRating" onchange="sortTable()">
+        <option value="row">低い順</option>
+        <option value="high">高い順</option>
+    </select>
+
+    <label for="filterRating" class="filterRating">絞り込み：</label>
+    <select id="filterRating" onchange="filterTable()">
+        <option value="">全て</option>
+        <option value="1">星1</option>
+        <option value="2">星2</option>
+        <option value="3">星3</option>
+        <option value="4">星4</option>
+        <option value="5">星5</option>
+    </select>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ユーザー名</th>
+                <th>年齢</th>
+                <th>評価</th>
+                <th>レビュー内容</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% personas.forEach(persona=> { %>
+                <tr>
+                    <td>
+                        <%= persona.username %>
+                    </td>
+                    <td>
+                        <%= persona.id %>
+                    </td>
+                    <td>
+                        <div class="rating-stars">
+                            <% for (let i=0; i < persona.rating; i++) { %>
+                                <span class="star">★</span>
+                                <% } %>
+                        </div>
+                    </td>
+                    <td>
+                        <%= persona.reason %>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+
+    <div class="ageStatus" id="ageStatus"></div>
+
+    <script>
+
+        /*-----------------------ソート機能----------------------------*/
+        function sortTable() {
+            let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.querySelector("table");
+            switching = true;
+            dir = document.querySelector("#sortRating").value === "asc" ? 1 : -1;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    let ratingStarsX = rows[i].querySelector(".rating-stars");
+                    let ratingStarsY = rows[i + 1].querySelector(".rating-stars");
+
+                    if (ratingStarsX && ratingStarsY) {
+                        x = ratingStarsX.childElementCount;
+                        y = ratingStarsY.childElementCount;
+
+                        if (dir === 1) {
+                            if (x > y) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else if (dir === -1) {
+                            if (x < y) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount === 0 && dir === 1) {
+                        dir = -1;
+                        switching = true;
+                    }
+                }
+            }
+        }
+        /*--------------------絞り込み機能----------------------- */
+        function filterTable() {
+            let table, rows, filter, cell, txtValue;
+            table = document.querySelector("table");
+            filter = document.querySelector("#filterRating").value;
+            rows = table.rows;
+
+            for (let i = 1; i < rows.length; i++) {
+                let ratingStars = rows[i].querySelector(".rating-stars");
+                if (ratingStars) {
+                    cell = ratingStars.childElementCount;
+                    if (filter === "" || cell === parseInt(filter)) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
