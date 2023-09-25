@@ -131,7 +131,7 @@
         }
 
     /*-----------------------年代別グラフ---------------------------*/
-    function ageStatus(persona) {
+    function ageStatusResult(persona) {
         const ageStatus = {};
 
         personas.forEach(persona => {
@@ -153,6 +153,8 @@
             return '40代';
         }
     }
+
+    const ageStatus = ageStatusResult(result);
     </script>
 </body>
 
