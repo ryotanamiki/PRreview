@@ -61,7 +61,7 @@
         </tbody>
     </table>
 
-    <div class="ageStatus" id="ageStatus"></div>
+    <div class="ageStatistics" id="ageStatistics"></div>
 
     <script>
 
@@ -131,7 +131,40 @@
         }
 
     /*-----------------------年代別グラフ---------------------------*/
+            function calculateAgeStatistics(personas) {
+                const ageStatistics = {};
 
+                // 年代別の統計を計算
+                personas.forEach(persona => {
+                    const ageGroup = Math.floor(persona.age / 10) * 10; // 10年ごとのグループ
+                    if (ageStatistics[ageGroup]) {
+                        ageStatistics[ageGroup]++;
+                    } else {
+                        ageStatistics[ageGroup] = 1;
+                    }
+                });
+
+                return ageStatistics;
+            }
+
+            // ユーザーの年代別統計をHTML形式で表示
+            function displayAgeStatistics(ageStatistics) {
+                const ageStatusDiv = document.querySelector("#ageStatus");
+                ageStatusDiv.innerHTML = "<h2>年代別評価統計</h2>";
+
+                const ageTable = document.createElement("table");
+                const ageTableBody = document.createElement("tbody");
+
+                // 年代別統計をテーブルに追加
+                for (const ageGroup in ageStatistics) {
+                    const row = ageTableBody.insertRow();
+                    const ageCell = row.insertCell(0);
+                    const countCell = row.insertCell(1);
+
+                    ageCell.textContent = `${ageGroup}代`;
+                    countCell.textContent = `${ageStatistics[ageGroup]}人`;
+                }
+            }
     </script>
 </body>
 

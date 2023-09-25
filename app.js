@@ -30,6 +30,8 @@ con.query('SELECT * FROM personas', (err, results) => {
     // Express.jsを使用してWebページを作成
     app.get('/', (req, res) => {
         res.render('index', { personas: results });
+        const ageStatistics = calculateAgeStatistics(results);
+    displayAgeStatistics(ageStatistics);
     });
 
     app.listen(port, () => {
