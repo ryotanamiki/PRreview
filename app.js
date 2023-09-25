@@ -27,13 +27,12 @@ app.use(express.static('assets'));
 con.query('SELECT * FROM personas', (err, results) => {
     if (err) throw err;
 
-// Express.jsを使用してWebページを作成
-app.get('/', (req, res) => {
-    res.render('index', { personas: results });
-});
+    // Express.jsを使用してWebページを作成
+    app.get('/', (req, res) => {
+        res.render('index', { personas: results });
+    });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+    });
 });
-});
-
