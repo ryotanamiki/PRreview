@@ -133,6 +133,10 @@
     /*-----------------------年代別グラフ---------------------------*/
     function ageStatus(persona) {
         const ageStatus = {};
+
+        personas.forEach(persona => {
+            const ageGroup = getAgeGroup(persona.age);
+        })
     }
     </script>
 </body>
