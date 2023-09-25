@@ -143,6 +143,16 @@
         });
         return ageStatus;
     }
+
+    function getAgeGroup(age) {
+        if (age >= 20 && age < 30) {
+            return '20代';
+        } else if (age >= 30 && age < 40) {
+            return '30代';
+        } else if (age >= 40 && age < 50) {
+            return '40代';
+        }
+    }
     </script>
 </body>
 
