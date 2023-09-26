@@ -42,10 +42,6 @@ th {
     color: orange;
 }
 
-.filterRating {
-    margin-left: 2%;
-}
-
-.ageStatistics {
-    height: 100px;
+.ageStatus {
+    margin-top: 2%;
 }

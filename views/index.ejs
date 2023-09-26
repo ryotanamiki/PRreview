@@ -58,9 +58,16 @@
                     </td>
                 </tr>
                 <% }); %>
-                <div class="ageStatus" id="ageStatus"></div>
         </tbody>
     </table>
+    <div class="ageStatus" id="ageStatus">
+        <h2>年代別評価統計</h2>
+        <% for (const ageGroup in ageRatingsCount) { %>
+            <p>
+                <%= ageGroup %>: <%= ageRatingsCount[ageGroup] %>人
+            </p>
+            <% } %>
+    </div>
 
     <script>
 
@@ -128,22 +135,6 @@
                 }
             }
         }
-
-    /*-----------------------年代別グラフ---------------------------*/
-            const ages = document.getElementById('ageStatus');
-            ages.innerHTML = `<h2>年代別評価統計</h2>`;
-
-            const ageRatingCount = {};
-
-            personas.forEach(persona => {
-                const ageGroup = getAgeGroup(persona.age);
-                if (ageRatingCount[ageGroup]) {
-                    ageRatingCount[ageGroup][persona.rating] = (ageRatingCount[ageGroup] || 0) + 1;
-                } else {
-                    ageRatingCount[ageGroup] = { [persona.rating]: 1 };
-                }
-            });
-
     </script>
 </body>
 
