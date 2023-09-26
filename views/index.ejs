@@ -130,41 +130,45 @@
         }
 
             /*-----------------------年代別グラフ---------------------------*/
-                const ageRatingsCount = {};
+        document.addEventListener('DOMContentLoaded', function () {
 
-                personas.forEach(persona => {
-                    const ageGroup = getAgeGroup(persona.age);
-                    if (ageRatingsCount[ageGroup]) {
-                        ageRatingsCount[ageGroup][persona.rating] = (ageRatingsCount[ageGroup][persona.rating] || 0) + 1;
-                    } else {
-                        ageRatingsCount[ageGroup] = { [persona.rating]: 1 };
-                    }
-                });
+        const ageRatingsCount = {};
 
-                const ageStatus = document.getElementById('ageStatus');
-                        ageStatus.innerHTML = `<h2>年代別評価統計</h2>`;
+        personas.forEach(persona => {
+            const ageGroup = getAgeGroup(persona.age);
+            if (ageRatingsCount[ageGroup]) {
+                ageRatingsCount[ageGroup][persona.rating] = (ageRatingsCount[ageGroup][persona.rating] || 0) + 1;
+            } else {
+                ageRatingsCount[ageGroup] = { [persona.rating]: 1 };
+            }
+        });
 
-                for (const ageGroup in ageRatingsCount) {
-                    const ageGroupCount = ageRatingsCount[ageGroup];
-                    ageStatus.innerHTML += `<p>${ageGroup}代: `;
-                    for (let rating = 1; rating <= 5; rating++) {
-                        const count = ageGroupCount[rating] || 0;
-                        ageStatus.innerHTML += `星${rating}(${count}人) `;
-                    }
-                    ageStatus.innerHTML += '</p>';
-                }
+        const ageStatus = document.getElementById('ageStatus');
+        ageStatus.innerHTML = `<h2>年代別評価統計</h2>`;
 
-                function getAgeGroup(age) {
-                    if (age >= 20 && age < 30) {
-                        return '20代';
-                    } else if (age >= 30 && age < 40) {
-                        return '30代';
-                    } else if (age >= 40 && age < 50) {
-                        return '40代';
-                    } else {
-                        return 'その他';
-                    }
-                }
+        for (const ageGroup in ageRatingsCount) {
+            const ageGroupCount = ageRatingsCount[ageGroup];
+            ageStatus.innerHTML += `<p>${ageGroup}代: `;
+            for (let rating = 1; rating <= 5; rating++) {
+                const count = ageGroupCount[rating] || 0;
+                ageStatus.innerHTML += `星${rating}(${count}人) `;
+            }
+            ageStatus.innerHTML += '</p>';
+        }
+
+        function getAgeGroup(age) {
+            if (age >= 20 && age < 30) {
+                return '20代';
+            } else if (age >= 30 && age < 40) {
+                return '30代';
+            } else if (age >= 40 && age < 50) {
+                return '40代';
+            } else {
+                return 'その他';
+            }
+        }
+    });
+
 
     </script>
 </body>
