@@ -66,7 +66,7 @@
 
         /*-----------------------ソート機能----------------------------*/
         function sortTable() {
-            let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
             table = document.querySelector("table");
             switching = true;
             dir = document.querySelector("#sortRating").value === "row" ? 1 : -1;
@@ -100,9 +100,9 @@
                 if (shouldSwitch) {
                     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
-                    switchcount++;
+                    switchCount++;
                 } else {
-                    if (switchcount === 0 && dir === 1) {
+                    if (switchCount === 0 && dir === 1) {
                         dir = -1;
                         switching = true;
                     }
@@ -129,45 +129,45 @@
             }
         }
 
-            /*-----------------------年代別グラフ---------------------------*/
-        document.addEventListener('DOMContentLoaded', function () {
+        //         /*-----------------------年代別グラフ---------------------------*/
+        //     document.addEventListener('DOMContentLoaded', function () {
 
-        const ageRatingsCount = {};
+        //     const ageRatingsCount = {};
 
-        personas.forEach(persona => {
-            const ageGroup = getAgeGroup(persona.age);
-            if (ageRatingsCount[ageGroup]) {
-                ageRatingsCount[ageGroup][persona.rating] = (ageRatingsCount[ageGroup][persona.rating] || 0) + 1;
-            } else {
-                ageRatingsCount[ageGroup] = { [persona.rating]: 1 };
-            }
-        });
+        //     personas.forEach(persona => {
+        //         const ageGroup = getAgeGroup(persona.age);
+        //         if (ageRatingsCount[ageGroup]) {
+        //             ageRatingsCount[ageGroup][persona.rating] = (ageRatingsCount[ageGroup][persona.rating] || 0) + 1;
+        //         } else {
+        //             ageRatingsCount[ageGroup] = { [persona.rating]: 1 };
+        //         }
+        //     });
 
-        const ageStatus = document.getElementById('ageStatus');
-        ageStatus.innerHTML = `<h2>年代別評価統計</h2>`;
+        //     const ageStatus = document.getElementById('ageStatus');
+        //     ageStatus.innerHTML = `<h2>年代別評価統計</h2>`;
 
-        for (const ageGroup in ageRatingsCount) {
-            const ageGroupCount = ageRatingsCount[ageGroup];
-            ageStatus.innerHTML += `<p>${ageGroup}代: `;
-            for (let rating = 1; rating <= 5; rating++) {
-                const count = ageGroupCount[rating] || 0;
-                ageStatus.innerHTML += `星${rating}(${count}人) `;
-            }
-            ageStatus.innerHTML += '</p>';
-        }
+        //     for (const ageGroup in ageRatingsCount) {
+        //         const ageGroupCount = ageRatingsCount[ageGroup];
+        //         ageStatus.innerHTML += `<p>${ageGroup}代: `;
+        //         for (let rating = 1; rating <= 5; rating++) {
+        //             const count = ageGroupCount[rating] || 0;
+        //             ageStatus.innerHTML += `星${rating}(${count}人) `;
+        //         }
+        //         ageStatus.innerHTML += '</p>';
+        //     }
 
-        function getAgeGroup(age) {
-            if (age >= 20 && age < 30) {
-                return '20代';
-            } else if (age >= 30 && age < 40) {
-                return '30代';
-            } else if (age >= 40 && age < 50) {
-                return '40代';
-            } else {
-                return 'その他';
-            }
-        }
-    });
+        //     function getAgeGroup(age) {
+        //         if (age >= 20 && age < 30) {
+        //             return '20代';
+        //         } else if (age >= 30 && age < 40) {
+        //             return '30代';
+        //         } else if (age >= 40 && age < 50) {
+        //             return '40代';
+        //         } else {
+        //             return 'その他';
+        //         }
+        //     }
+        // });
 
 
     </script>
