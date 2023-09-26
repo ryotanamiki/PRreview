@@ -58,6 +58,7 @@
                     </td>
                 </tr>
                 <% }); %>
+                <div class="ageStatus" id="ageStatus"></div>
         </tbody>
     </table>
 
@@ -141,7 +142,7 @@
                 });
 
                 const ageStatus = document.getElementById('ageStatus');
-                ageStatus.innerHTML = '`<h2>年代別評価統計</h2>`';
+                        ageStatus.innerHTML = `<h2>年代別評価統計</h2>`;
 
                 for (const ageGroup in ageRatingsCount) {
                     const ageGroupCount = ageRatingsCount[ageGroup];
