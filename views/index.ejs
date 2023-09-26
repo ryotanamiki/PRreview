@@ -44,7 +44,7 @@
                         <%= persona.username %>
                     </td>
                     <td>
-                        <%= persona.id %>
+                        <%= persona.age %>歳
                     </td>
                     <td>
                         <div class="rating-stars">
@@ -60,8 +60,6 @@
                 <% }); %>
         </tbody>
     </table>
-
-    <div class="ageStatus" id="ageStatus"></div>
 
     <script>
 
@@ -130,41 +128,48 @@
             }
         }
 
-    /*-----------------------年代別グラフ---------------------------*/
-            function calculateAgeStatistics(personas) {
-                const ageStatistics = {};
+        /*-----------------------年代別グラフ---------------------------*/
 
-                // 年代別の統計を計算
-                personas.forEach(persona => {
-                    const ageGroup = Math.floor(persona.age / 10) * 10; // 10年ごとのグループ
-                    if (ageStatistics[ageGroup]) {
-                        ageStatistics[ageGroup]++;
-                    } else {
-                        ageStatistics[ageGroup] = 1;
-                    }
-                });
+        // 年代ごとの評価カウントを格納するオブジェクト
+        const ageRatingsCount = {};
 
-                return ageStatistics;
+        // personasデータから年代ごとの評価カウントを計算
+        personas.forEach(persona => {
+        const ageGroup = getAgeGroup(persona.age);
+        if (ageRatingsCount[ageGroup]) {
+            ageRatingsCount[ageGroup][persona.rating] = (ageRatingsCount[ageGroup][persona.rating] || 0) + 1;
+        } else {
+            ageRatingsCount[ageGroup] = { [persona.rating]: 1 };
+        }
+    });
+
+        // HTMLに年代ごとの評価カウントを表示
+        const ageStatus = document.getElementById('ageStatus');
+        ageStatus.innerHTML = '<h2>年代別評価統計</h2>';
+
+        for (const ageGroup in ageRatingsCount) {
+            const ageGroupCount = ageRatingsCount[ageGroup];
+            ageStatus.innerHTML += `<p>${ageGroup}代: `;
+            for (let rating = 1; rating <= 5; rating++) {
+                const count = ageGroupCount[rating] || 0;
+                ageStatus.innerHTML += `星${rating}(${count}人) `;
             }
+            ageStatus.innerHTML += '</p>';
+        }
 
-            // ユーザーの年代別統計をHTML形式で表示
-            function displayAgeStatistics(ageStatistics) {
-                const ageStatusDiv = document.querySelector("#ageStatus");
-                ageStatusDiv.innerHTML = "<h2>年代別評価統計</h2>";
-
-                const ageTable = document.createElement("table");
-                const ageTableBody = document.createElement("tbody");
-
-                // 年代別統計をテーブルに追加
-                for (const ageGroup in ageStatistics) {
-                    const row = ageTableBody.insertRow();
-                    const ageCell = row.insertCell(0);
-                    const countCell = row.insertCell(1);
-
-                    ageCell.textContent = `${ageGroup}代`;
-                    countCell.textContent = `${ageStatistics[ageGroup]}人`;
-                }
+        // 年代を計算するヘルパー関数
+        function getAgeGroup(age) {
+            if (age >= 20 && age < 30) {
+                return '20代';
+            } else if (age >= 30 && age < 40) {
+                return '30代';
+            } else if (age >= 40 && age < 50) {
+                return '40代';
+            } else {
+                return 'その他';
             }
+        }
+
     </script>
 </body>
 
