@@ -34,7 +34,20 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.write {
+    margin: 1% 0;
+}
+
+.write a {
+    color: red;
+    text-decoration: none;
+}
+
+a {
+    color: lightslategrey;
+}
 th {
+
     background-color: lightyellow;
 }
 
