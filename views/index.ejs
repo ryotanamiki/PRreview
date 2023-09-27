@@ -44,7 +44,7 @@
                         <%= persona.username %>
                     </td>
                     <td>
-                        <%= persona.id %>
+                        <%= persona.age %>歳
                     </td>
                     <td>
                         <div class="rating-stars">
@@ -60,14 +60,20 @@
                 <% }); %>
         </tbody>
     </table>
-
-    <div class="ageStatus" id="ageStatus"></div>
+    <div class="ageStatus" id="ageStatus">
+        <h2>年代別評価統計</h2>
+        <% for (const ageGroup in ageRatingsCount) { %>
+            <p>
+                <%= ageGroup %>: <%= ageRatingsCount[ageGroup] %>人
+            </p>
+            <% } %>
+    </div>
 
     <script>
 
         /*-----------------------ソート機能----------------------------*/
         function sortTable() {
-            let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
             table = document.querySelector("table");
             switching = true;
             dir = document.querySelector("#sortRating").value === "row" ? 1 : -1;
@@ -101,16 +107,16 @@
                 if (shouldSwitch) {
                     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
-                    switchcount++;
+                    switchCount++;
                 } else {
-                    if (switchcount === 0 && dir === 1) {
+                    if (switchCount === 0 && dir === 1) {
                         dir = -1;
                         switching = true;
                     }
                 }
             }
         }
-        /*--------------------絞り込み機能----------------------- */
+    /*--------------------絞り込み機能-----------------------*/
         function filterTable() {
             let table, rows, filter, cell, txtValue;
             table = document.querySelector("table");
@@ -129,7 +135,6 @@
                 }
             }
         }
-
     </script>
 </body>
 
