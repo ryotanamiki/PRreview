@@ -48,23 +48,42 @@ con.query('SELECT * FROM personas', (err, results) => {
         res.sendFile(path.join(__dirname, '/views/form.ejs'))
     });
 
-app.get('/edit/:id', (req, res) => {
-  const sql = "SELECT * FROM personas WHERE id = ?";
-  con.query(sql, [req.params.id], function (err, result, fields) {
-    if (err) throw err;
-    res.render('edit', {
-      personas: result
-    });
-  });
-});
+    app.get('/edit', (req, res) => {
+        res.sendFile(path.join(__dirname, '/views/edit.ejs'))
+    })
 
+// レビューの更新ページ
+    app.get('/edit/:id', (req, res) => {
+        const reviewId = req.params.id;
+
+        con.query('SELECT * FROM personas WHERE id = ?', [reviewId], (err, result) => {
+            if (err) {
+                console.error(err);
+                res.send('レビューの取得に失敗しました。');
+            } else {
+                res.render('edit', { review: result[0] });
+            }
+        });
+    });
+
+// レビューの更新処理
     app.post('/update/:id', (req, res) => {
-  const sql = "UPDATE personas SET ? WHERE id = " + req.params.id;
-  con.query(sql, req.body, function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-    res.redirect('/');
-  });
+        const reviewId = req.params.id;
+        const { username, age, rating, reason } = req.body;
+
+        con.query(
+            'UPDATE personas SET username=?, age=?, rating=?, reason=? WHERE id=?',
+            [username, age, rating, reason, reviewId],
+            (err, result) => {
+                if (err) {
+                    console.error(err);
+                    res.send('レビューの更新に失敗しました。');
+                } else {
+                    console.log('レビューが更新されました。');
+                    res.redirect('/');
+                }
+            }
+        );
     });
 
 // 新しいレビューを追加
