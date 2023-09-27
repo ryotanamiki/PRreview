@@ -14,8 +14,8 @@
     <label for="sortRating">ソート：</label>
     <select id="sortRating" onchange="sortTable()">
         <option value="">ー</option>
-        <option value="row">低い順</option>
-        <option value="high">高い順</option>
+        <option value="asc">低い順</option>
+        <option value="desc">高い順</option>
     </select>
 
     <label for="filterRating" class="filterRating">絞り込み：</label>
@@ -30,7 +30,7 @@
 
     <p class="write"><a href="/create">商品のレビューを書く</a></p>
 
-    <table>
+    <table id="reviewTable">
         <thead>
             <tr>
                 <th>ユーザー名</th>
@@ -76,49 +76,40 @@
 
         /*-----------------------ソート機能----------------------------*/
         function sortTable() {
-            let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
-            table = document.querySelector("table");
+            let table, rows, switching, i, x, y, shouldSwitch, dir;
+            table = document.getElementById("reviewTable");
             switching = true;
-            dir = document.querySelector("#sortRating").value === "row" ? 1 : -1;
+            dir = document.getElementById("sortRating").value;
 
             while (switching) {
                 switching = false;
                 rows = table.rows;
 
                 for (i = 1; i < (rows.length - 1); i++) {
-                    let ratingStarsX = rows[i].querySelector(".rating-stars");
-                    let ratingStarsY = rows[i + 1].querySelector(".rating-stars");
+                x = rows[i].querySelector(".rating-stars").childElementCount;
+                y = rows[i + 1].querySelector(".rating-stars").childElementCount;
 
-                    if (ratingStarsX && ratingStarsY) {
-                        x = ratingStarsX.childElementCount;
-                        y = ratingStarsY.childElementCount;
-
-                        if (dir === 1) {
-                            if (x > y) {
-                                shouldSwitch = true;
-                                break;
-                            }
-                        } else if (dir === -1) {
-                            if (x < y) {
-                                shouldSwitch = true;
-                                break;
-                            }
-                        }
+                shouldSwitch = false;
+                if (dir === "asc") {
+                    if (x > y) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (x < y) {
+                        shouldSwitch = true;
+                        break;
                     }
                 }
+            }
 
                 if (shouldSwitch) {
                     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
-                    switchCount++;
-                } else {
-                    if (switchCount === 0 && dir === 1) {
-                        dir = -1;
-                        switching = true;
-                    }
                 }
             }
         }
+
     /*--------------------絞り込み機能-----------------------*/
         function filterTable() {
             let table, rows, filter, cell, txtValue;
