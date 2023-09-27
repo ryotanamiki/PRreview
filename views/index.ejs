@@ -11,22 +11,26 @@
 <body>
     <h1>商品レビュー機能</h1>
 
-    <label for="sortRating">ソート：</label>
-    <select id="sortRating" onchange="sortTable()">
-        <option value="">ー</option>
-        <option value="asc">低い順</option>
-        <option value="desc">高い順</option>
-    </select>
+    <form action="/" method="get">
+        <label for="sortRating">ソート：</label>
+        <select id="sortRating" name="sort">
+            <option value="default">ー</option>
+            <option value="asc">低い順</option>
+            <option value="desc">高い順</option>
+        </select>
+        <input type="submit" value="実行">
+        </form>
 
-    <label for="filterRating" class="filterRating">絞り込み：</label>
-    <select id="filterRating" onchange="filterTable()">
-        <option value="">全て</option>
-        <option value="1">星1</option>
-        <option value="2">星2</option>
-        <option value="3">星3</option>
-        <option value="4">星4</option>
-        <option value="5">星5</option>
-    </select>
+        <label for="filterRating" class="filterRating">絞り込み：</label>
+        <select id="filterRating" onchange="filterTable()">
+            <option value="">全て</option>
+            <option value="1">星1</option>
+            <option value="2">星2</option>
+            <option value="3">星3</option>
+            <option value="4">星4</option>
+            <option value="5">星5</option>
+        </select>
+
 
     <p class="write"><a href="/create">商品のレビューを書く</a></p>
 
