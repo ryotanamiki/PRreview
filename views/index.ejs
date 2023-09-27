@@ -13,16 +13,16 @@
 
     <form action="/" method="get">
         <label for="sortRating">ソート：</label>
-        <select id="sortRating" name="sort">
+        <select id="sortRating" name="sort" onchange="sortTable()">
             <option value="default">ー</option>
             <option value="asc">低い順</option>
             <option value="desc">高い順</option>
         </select>
-        <input type="submit" value="実行">
         </form>
 
-        <label for="filterRating" class="filterRating">絞り込み：</label>
-        <select id="filterRating" onchange="filterTable()">
+    <form action="/" method="get">
+        <label for="filterRating">絞り込み：</label>
+        <select id="filterRating" name="filter" onchange="filterTable()">
             <option value="">全て</option>
             <option value="1">星1</option>
             <option value="2">星2</option>
@@ -30,7 +30,7 @@
             <option value="4">星4</option>
             <option value="5">星5</option>
         </select>
-
+        </form>
 
     <p class="write"><a href="/create">商品のレビューを書く</a></p>
 
@@ -117,7 +117,7 @@
     /*--------------------絞り込み機能-----------------------*/
         function filterTable() {
             let table, rows, filter, cell, txtValue;
-            table = document.querySelector("table");
+            table = document.getElementById("reviewTable");
             filter = document.querySelector("#filterRating").value;
             rows = table.rows;
 
@@ -133,6 +133,7 @@
                 }
             }
         }
+
     </script>
 </body>
 
