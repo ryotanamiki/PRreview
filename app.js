@@ -55,6 +55,39 @@ app.get('/', (req, res) => {
     });
 });
 
+//絞り込み条件の取得
+app.get('/', (req, res) => {
+        const filterRating = req.query.filter || ''; // クエリストリングから絞り込み条件を取得
+
+        // 絞り込み条件に応じてSQLクエリを生成
+        let sqlQuery = 'SELECT * FROM personas';
+
+        if (filterRating !== '') {
+            sqlQuery += ` WHERE rating = ${mysql.escape(filterRating)}`;
+        }
+
+    con.query(sqlQuery, (err, results) => {
+        if (err) throw err;
+
+        const ageRatingsCount = {};
+
+        results.forEach(persona => {
+            const ageGroup = getAgeGroup(persona.age);
+            if (ageRatingsCount[ageGroup]) {
+                ageRatingsCount[ageGroup] += 1;
+            } else {
+                ageRatingsCount[ageGroup] = 1;
+            }
+        });
+
+        res.render('index', {
+            personas: results,
+            ageRatingsCount: ageRatingsCount
+        });
+    });
+});
+
+//それぞれの別ファイルへ飛ぶルート
 app.get('/create', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/form.ejs'));
 });
@@ -63,6 +96,7 @@ app.get('/edit', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/edit.ejs'));
 });
 
+//更新処理
 app.get('/edit/:id', (req, res) => {
     const reviewId = req.params.id;
 
@@ -95,6 +129,7 @@ app.post('/update/:id', (req, res) => {
     );
 });
 
+//レビュー追加処理
 app.post('/addReview', (req, res) => {
     const { username, age, rating, reason } = req.body;
 
